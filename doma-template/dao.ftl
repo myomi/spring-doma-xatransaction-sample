@@ -10,12 +10,18 @@ package ${packageName};
 <#list importNames as importName>
 import ${importName};
 </#list>
+<#list lib.annotationHash?values as annotationImportName>
+import ${annotationImportName};
+</#list>
 
 /**
 <#if lib.author??>
  * @author ${lib.author}
 </#if>
  */
+<#list lib.annotationHash?keys as annotation>
+@${annotation}
+</#list>
 @Dao<#if configClassSimpleName??>(config = ${configClassSimpleName}.class)</#if>
 public interface ${simpleName} {
 

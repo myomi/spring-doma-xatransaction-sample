@@ -66,7 +66,7 @@ task domaGen doLast {
 			user: "${dbUser}",
 			password: "${dbPassword}",
 			versionColumnNamePattern: 'version_no',
-			// templatePrimaryDir: 'doma-template'
+			templatePrimaryDir: 'doma-template'
 	) {
         entityConfig(
 			packageName: "${basePackage}.entity",
