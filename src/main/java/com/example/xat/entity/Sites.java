@@ -1,4 +1,4 @@
-package com.exapmle.xat.entity;
+package com.example.xat.entity;
 
 import org.seasar.doma.Column;
 import org.seasar.doma.Entity;

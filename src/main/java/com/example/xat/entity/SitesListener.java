@@ -1,4 +1,4 @@
-package com.exapmle.xat.entity;
+package com.example.xat.entity;
 
 import org.seasar.doma.jdbc.entity.EntityListener;
 import org.seasar.doma.jdbc.entity.PostDeleteContext;

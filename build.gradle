@@ -53,7 +53,7 @@ dependencies {
 def dbUrl = 'jdbc:postgresql://127.0.0.1:5432/parent'
 def dbUser = 'db_user'
 def dbPassword = 'abcd1234'
-def basePackage = 'com.exapmle.xat'
+def basePackage = 'com.example.xat'
 
 /**
  * generate entity, dao and sql files
@@ -71,7 +71,7 @@ task domaGen doLast {
         entityConfig(
 			packageName: "${basePackage}.entity",
 			overwrite: true,
-			overwriteListener: true,
+			overwriteListener: true
 		)
         daoConfig(
 			packageName: "${basePackage}.dao",

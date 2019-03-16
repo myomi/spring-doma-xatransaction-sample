@@ -1,6 +1,6 @@
-package com.exapmle.xat.dao;
+package com.example.xat.dao;
 
-import com.exapmle.xat.entity.Sites;
+import com.example.xat.entity.Sites;
 import org.seasar.doma.Dao;
 import org.seasar.doma.Delete;
 import org.seasar.doma.Insert;
