@@ -3,6 +3,11 @@ plugins {
 	id 'java'
 }
 
+ext {
+	domaVersion = '2.24.0'
+	lombokVersion = '1.18.6'
+}
+
 apply plugin: 'io.spring.dependency-management'
 
 group = 'com.example'
@@ -14,9 +19,89 @@ repositories {
 	mavenCentral()
 }
 
+configurations {
+    domaGenRuntime
+}
+
 dependencies {
+	// Spring Framework
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	runtimeOnly 'org.postgresql:postgresql'
+	runtimeOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	
+	// PostgreSQL
+	runtimeOnly 'org.postgresql:postgresql'
+	
+	// Lombok
+	compileOnly "org.projectlombok:lombok:${lombokVersion}"
+	annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+	
+	// Doma
+	implementation 'org.seasar.doma.boot:doma-spring-boot-starter:1.1.1'
+	implementation "org.seasar.doma:doma:${domaVersion}"
+	annotationProcessor "org.seasar.doma:doma:${domaVersion}"
+	
+	// Doma-Gen
+    domaGenRuntime "org.seasar.doma:doma-gen:${domaVersion}"
+    domaGenRuntime 'org.postgresql:postgresql'
+}
+
+/*
+ * Doma-Gen settings
+ */
+def dbUrl = 'jdbc:postgresql://127.0.0.1:5432/parent'
+def dbUser = 'db_user'
+def dbPassword = 'abcd1234'
+def basePackage = 'com.exapmle.xat'
+
+/**
+ * generate entity, dao and sql files
+ */
+task domaGen doLast {
+    ant.taskdef(resource: 'domagentask.properties',
+        classpath: configurations.domaGenRuntime.asPath)
+    ant.gen(
+			url: "${dbUrl}",
+			user: "${dbUser}",
+			password: "${dbPassword}",
+			versionColumnNamePattern: 'version_no',
+			// templatePrimaryDir: 'doma-template'
+	) {
+        entityConfig(
+			packageName: "${basePackage}.entity",
+			overwrite: true,
+			overwriteListener: true,
+		)
+        daoConfig(
+			packageName: "${basePackage}.dao",
+			overwrite: true,
+		)
+        sqlConfig(
+			overwrite: true,
+		)
+    }
+}
+
+/*
+ * pre compile task for Doma
+ */
+task copyDomaResources(type: Sync)  {
+    from sourceSets.main.resources.srcDirs
+    into compileJava.destinationDir
+    include 'doma.compile.config'
+    include 'META-INF/**/*.sql'
+    include 'META-INF/**/*.script'
+}
+
+compileJava {
+    // Depend on the above task
+    dependsOn copyDomaResources
+    options.encoding = 'UTF-8'
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+    // Disable the annotation processors during the test run
+    options.compilerArgs = ['-proc:none']
 }
