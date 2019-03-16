@@ -1,0 +1,16 @@
+version: "3"
+services:
+  testdb:
+    container_name: testdb
+    build: .
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_INITDB_ARGS: --encoding=UTF-8 --locale=C
+
+volumes:
+  db-data:
