@@ -45,6 +45,9 @@ dependencies {
 	// Doma-Gen
     domaGenRuntime "org.seasar.doma:doma-gen:${domaVersion}"
     domaGenRuntime 'org.postgresql:postgresql'
+    
+    // Atomikos (global transaction library)
+    implementation 'org.springframework.boot:spring-boot-starter-jta-atomikos'
 }
 
 /*

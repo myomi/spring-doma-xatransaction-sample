@@ -30,3 +30,6 @@ bin
 ### VS Code ###
 .vscode/
 .history
+
+# JTA
+transaction-logs
