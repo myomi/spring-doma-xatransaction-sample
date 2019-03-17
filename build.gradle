@@ -54,7 +54,7 @@ dependencies {
      */
     // Atomikos (global transaction library)
     compile 'org.springframework.boot:spring-boot-starter-aop'
-    // implementation 'org.springframework.boot:spring-boot-starter-jta-atomikos'
+    implementation 'org.springframework.boot:spring-boot-starter-jta-atomikos'
 }
 
 /*

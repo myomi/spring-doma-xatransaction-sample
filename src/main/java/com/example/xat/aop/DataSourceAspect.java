@@ -1,6 +1,5 @@
 package com.example.xat.aop;
 
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -13,10 +12,10 @@ import com.example.xat.DataSourceKeyStore;
 @Aspect
 @Component
 @Order(Ordered.LOWEST_PRECEDENCE - 1)	// トランザクションマネージャよりも先に実行する
-public class SampleAspect {
+public class DataSourceAspect {
 	private final DataSourceKeyStore store;
 	
-    public SampleAspect(DataSourceKeyStore store) {
+    public DataSourceAspect(DataSourceKeyStore store) {
 		this.store = store;
 	}
 
