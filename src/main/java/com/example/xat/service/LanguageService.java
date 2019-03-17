@@ -14,12 +14,23 @@ public class LanguageService {
 	public LanguageService(LanguagesDao languagesDao) {
 		this.languagesDao = languagesDao;
 	}
-
+	
 	public Languages selectById(long languageId) {
+		return this.selectById("child1", languageId);
+	}
+
+	public Languages selectById(String siteName, long languageId) {
 		return this.languagesDao.selectById(languageId);
 	}
 	
-	public Languages insertTest(String languageCode) {
+//	public Languages insertTest(String languageCode) {
+//		var result = new Languages();
+//		result.setLanguageCode(languageCode);
+//		this.languagesDao.insert(result);
+//		return result;
+//	}
+	
+	public Languages insertTest(String siteName, String languageCode) {
 		var result = new Languages();
 		result.setLanguageCode(languageCode);
 		this.languagesDao.insert(result);

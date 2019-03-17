@@ -23,11 +23,17 @@ public class LanguageController {
 
 	@GetMapping(path="/{languageId}")
 	public Languages selectById(@PathVariable("languageId") Long languageId) {
-		return this.languageService.selectById(languageId);
+		return this.languageService.selectById("child1", languageId);
 	}
 	
 	@PostMapping
-	public Languages insert(@RequestBody String languageCode) {
-		return this.languageService.insertTest(languageCode);
+	public void insert(@RequestBody String languageCode) {
+		this.languageService.insertTest("default", languageCode);
+		this.languageService.insertTest("child1", languageCode);
+		this.languageService.insertTest("child2", languageCode);
+		
+		if (languageCode.equals("error")) {
+			throw new RuntimeException();
+		}
 	}
 }

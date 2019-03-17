@@ -30,7 +30,7 @@ dependencies {
 	runtimeOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	
-	// 
+	// for Debug
 	compile 'org.springframework.boot:spring-boot-starter-actuator'
 	
 	// PostgreSQL
@@ -49,8 +49,12 @@ dependencies {
     domaGenRuntime "org.seasar.doma:doma-gen:${domaVersion}"
     domaGenRuntime 'org.postgresql:postgresql'
     
+    /*
+     * グローバルトランザクション実現のための設定
+     */
     // Atomikos (global transaction library)
-    implementation 'org.springframework.boot:spring-boot-starter-jta-atomikos'
+    compile 'org.springframework.boot:spring-boot-starter-aop'
+    // implementation 'org.springframework.boot:spring-boot-starter-jta-atomikos'
 }
 
 /*
